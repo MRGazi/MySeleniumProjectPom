@@ -1,49 +1,33 @@
 package edu.mrg.seleniumMavenProject1;
 
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+
 
 public class BaseClass {
 	
 	WebDriver driver;
+	String chromeName = "webdriver.chrome.driver";
+	String chromePath = "G:\\BrowserDrivers\\chromedriver-86.0.4240.22\\chromedriver.exe";
+	String url = "https://opensource-demo.orangehrmlive.com/";
 	
-	@BeforeSuite
-	public void beforeSuite() {
-		System.out.println("This executes beforeSuite");
+	public void setupHomepage() {
+		System.setProperty(chromeName, chromePath);
+		driver = new ChromeDriver();
+		System.out.println("Homepage setup successfull");
 	}
 	
-	@AfterSuite
-	public void atereSuite() {
-		System.out.println("This executes afterSuite");
+	public void launchHomepage() throws Exception {
+		driver.navigate().to(url);
+		driver.manage().window().maximize();
+		driver.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		System.out.println("Homepage launched successfully");
+		Thread.sleep(4000);
 	}
 	
-	@BeforeClass
-	public void beforeClass() {
-		System.out.println("This executes beforeClass");
-	}
-	
-	 @AfterClass
-	 public void afterClass() {
-		 System.out.println("This executes afterClass");
-	 }
-	 
-	 @Test  
-	 public void createTest1() {
-		System.out.println("This is a createTest1");
-	 }
-	 
-	 @Test
-	 public void createTest2() {
-		 System.out.println("This is a createTest2");
-	 }
-	 
-	 @Test
-	 public void createTest3() {
-		 System.out.println("This is a createTest3");
-	 }
 
 }
